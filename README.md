@@ -13,7 +13,7 @@ A simple Python script to activate WinRAR.
 (Run PowerShell as Administrator)
 
 ```ps
-iwr -useb https://raw.githubusercontent.com/NoirBird/WinRAR-Patcher/main/powershell-install.ps1 | iex
+  iwr -useb https://raw.githubusercontent.com/NoirBird/WinRAR-Patcher/main/powershell-install.ps1 | iex
 ```
 
 **Python Script:**
