@@ -30,7 +30,7 @@ def main():
             file.seek(0)
             file.write(file_data)
             file.truncate()
-        ctypes.windll.user32.MessageBoxW(0, "Successfully Patched! 12369321", "NoirBird WR Patcher", 0)
+        ctypes.windll.user32.MessageBoxW(0, "Successfully Patched! (Im bored af)", "NoirBird WR Patcher", 0)
     else:
         ctypes.windll.user32.MessageBoxW(0, "You need to run this file as administrator!", "NoirBird WR Patcher", 0)
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
