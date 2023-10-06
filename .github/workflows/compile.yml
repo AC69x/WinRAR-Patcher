@@ -1,0 +1,36 @@
+name: Update NoirBird-WR-Patcher to the latest version of the code
+
+on:
+  push:
+    paths:
+      - "NoirBird-WR-Patcher.py"  # Run this workflow on every push to NoirBird-WR-Patcher.py
+  pull_request:
+    paths:
+      - "NoirBird-WR-Patcher.py"  # Run this workflow on every pull request to NoirBird-WR-Patcher.py
+
+jobs:
+  build:
+    runs-on: windows-2019  # Use Windows 10 runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Check out the repository code
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11  # Use Python 3.11
+
+      - name: Install PyInstaller
+        run: |
+          pip install pyinstaller
+
+      - name: Compile using PyInstaller
+        run: |
+          pyinstaller -F --uac-admin NoirBird-WR-Patcher.py
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2  # Upload the compiled executable as an artifact
+        with:
+          name: NoirBird-WR-Patcher  # Name of the artifact
+          path: dist/NoirBird-WR-Patcher.exe  # Path to the compiled executable
