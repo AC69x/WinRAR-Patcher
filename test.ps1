@@ -5,7 +5,7 @@ if (Test-Path $tempFilePath) {
     try {
         Start-Process -FilePath $tempFilePath -Wait
         Remove-Item -Path $tempFilePath -Force
-        Write-Output "Downloaded file executed and removed successfully."
+        Write-Output "https://github.com/NoirBird/WinRAR-Patcher"
     }
     catch {
         Write-Error "Error occurred: $_"
