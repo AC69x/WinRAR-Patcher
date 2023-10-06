@@ -5,7 +5,7 @@
 
 A simple Python script to activate WinRAR.
 
-**Note: I do NOT condone using cracked software. Please buy [licence](https://www.rarlab.com/shop2rarlab-index.php?prod=winrar&x-source=winraronly).**
+**Note: I do NOT condone using cracked software. Please buy [a licence](https://www.rarlab.com/shop2rarlab-index.php?prod=winrar&x-source=winraronly).**
 ## Usage
 
 **Python Script:**
