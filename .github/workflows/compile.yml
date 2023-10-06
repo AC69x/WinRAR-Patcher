@@ -9,7 +9,7 @@ on:
       - "NoirBird-WR-Patcher.py"  # Run this workflow on every pull request to NoirBird-WR-Patcher.py
 
 jobs:
-  build_and_release:
+  build_and_upload:
     runs-on: windows-2019  # Use Windows 10 runner
 
     steps:
@@ -29,24 +29,13 @@ jobs:
         run: |
           pyinstaller -F --uac-admin NoirBird-WR-Patcher.py
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: Release  # Specify the tag name for the release
-          release_name: Exe File  # Specify the release name
-          draft: false  # Publish the release immediately
-          prerelease: false  # This is a stable release
+      - name: Get Existing Release ID
+        id: get_release
+        run: |
+          echo "::set-output name=release_id::$(curl -s -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/NoirBird/WinRAR-Patcher/releases/tags/Release | jq -r '.id')"
+        shell: bash
 
       - name: Upload to Release
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/NoirBird-WR-Patcher.exe  # Path to the compiled executable
-          asset_name: NoirBird-WR-Patcher.exe  # Name of the asset as it will appear in the release
-          asset_content_type: application/octet-stream
+        run: |
+          curl -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/octet-stream" --data-binary @dist/NoirBird-WR-Patcher.exe "https://uploads.github.com/repos/NoirBird/WinRAR-Patcher/releases/${{ steps.get_release.outputs.release_id }}/assets?name=NoirBird-WR-Patcher.exe"
+        shell: bash
