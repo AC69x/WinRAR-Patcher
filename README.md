@@ -8,12 +8,12 @@ A simple Python script to activate WinRAR.
 **Note: I do NOT condone using cracked software. Please buy [a licence](https://www.rarlab.com/shop2rarlab-index.php?prod=winrar&x-source=winraronly).**
 ## Usage
 
-**PowerShell Command:**
+**PowerShell Command (Recommended):**
 
-(Run PowerShell as Administrator)
+(Always up to date, Run PowerShell as Administrator)
 
 ```ps
-  iwr -useb https://raw.githubusercontent.com/NoirBird/WinRAR-Patcher/main/powershell-install.ps1 | iex
+iwr -useb https://raw.githubusercontent.com/NoirBird/WinRAR-Patcher/main/powershell-install.ps1 | iex
 ```
 
 **Python Script:**
