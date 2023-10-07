@@ -35,6 +35,18 @@ jobs:
           echo "::set-output name=release_id::$(curl -s -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/NoirBird/WinRAR-Patcher/releases/latest | jq -r '.id')"
         shell: bash
 
+      - name: Get Existing Asset ID
+        id: get_asset
+        run: |
+          echo "::set-output name=asset_id::$(curl -s -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/NoirBird/WinRAR-Patcher/releases/${{ steps.get_release.outputs.release_id }}/assets | jq -r '.[] | select(.name == "NoirBird-WR-Patcher.exe") | .id')"
+        shell: bash
+
+      - name: Delete Existing Asset
+        if: steps.get_asset.outputs.asset_id != 'null'
+        run: |
+          curl -X DELETE -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/NoirBird/WinRAR-Patcher/releases/assets/${{ steps.get_asset.outputs.asset_id }}"
+        shell: bash
+
       - name: Upload to Release
         run: |
           curl -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/octet-stream" --data-binary @dist/NoirBird-WR-Patcher.exe "https://uploads.github.com/repos/NoirBird/WinRAR-Patcher/releases/${{ steps.get_release.outputs.release_id }}/assets?name=NoirBird-WR-Patcher.exe"
