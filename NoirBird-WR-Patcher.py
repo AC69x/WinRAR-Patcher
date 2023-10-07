@@ -1,4 +1,4 @@
-import ctypes, winreg, sys
+import ctypes, winreg, sys, time, os
 
 licence_check = b"\x74\x04\xB0\x01\xEB\x68"
 licence_check_replace = b"\x90\x90\xB0\x01\xEB\x68"
@@ -7,6 +7,8 @@ credits_text_replace = b"\x43\x00\x72\x00\x61\x00\x63\x00\x6B\x00\x20\x00\x62\x0
 
 def main():
     if ctypes.windll.shell32.IsUserAnAdmin():
+        os.system("taskkill /f /IM winrar.exe >nul")
+        time.sleep(2)
         try:
             key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\WinRAR")
             exe64_path, _ = winreg.QueryValueEx(key, "exe64")
