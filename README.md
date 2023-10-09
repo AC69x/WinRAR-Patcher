@@ -3,7 +3,7 @@
 
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 
-A simple Python script to activate WinRAR.
+A simple Python script to activate WinRAR (64 bit version).
 
 Supports WinRAR 6.00+ (Support for older versions coming soon)
 
